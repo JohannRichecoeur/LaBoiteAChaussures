@@ -2,6 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/LaBoiteAChaussures/LaBoiteAChaussures/bin/Debug
-/LaBoiteAChaussures/LaBoiteAChaussures/obj/Debug
+/LaBoiteAChaussures/bin/Debug
+/LaBoiteAChaussures/obj/Debug
 *.user
