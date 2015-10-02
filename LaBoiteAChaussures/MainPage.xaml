@@ -5,9 +5,104 @@
     xmlns:local="using:LaBoiteAChaussures"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <!-- Collection of items displayed by this page -->
+        <CollectionViewSource
+        x:Name="ItemsViewSource"
+        Source="{Binding Items}"/>
+    </Page.Resources>
+    
+    <Grid>
+        <!-- Back button and page title -->
+        <Grid Background="White">
+            
+        </Grid>
 
+        <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
+                CompactPaneLength="50" OpenPaneLength="150">
+
+            <SplitView.Pane>
+                <StackPanel>
+                    <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
+                            Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xEB9F;" Click="MenuButton1_OnClick"
+                     Width="50" Height="50" Background="Transparent"/>
+                        <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" >
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE116;" Click="MenuButton2_OnClick"
+                         Width="50" Height="50" Background="Transparent"/>
+                        <TextBlock Text="Films" FontSize="18" VerticalAlignment="Center" >
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+            </SplitView.Pane>
+
+            <SplitView.Content>
+                <Grid>
+                    <Grid.ChildrenTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition/>
+                        </TransitionCollection>
+                    </Grid.ChildrenTransitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="DarkSlateGray">
+                        <TextBlock x:Name="PageTitle" FontFamily="Lucida Handwriting" FontSize="50" Foreground="Black"
+				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Top" Margin="40,40,0,0"/>
+                        <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Right" TextWrapping="Wrap"  FontSize="26" FontFamily="Lucida Handwriting" Text="" VerticalAlignment="Bottom"/>
+                        <ProgressRing x:Name="LoadingProgressRing" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80" Foreground="Bisque"/>
+                        <Image Name="OpenBox" Source="Assets/LockScreenLogo.png" Visibility="Visible" HorizontalAlignment="Right" Height="140" VerticalAlignment="Bottom" Width="182" Tapped="Button_Click" PointerPressed="OpenBox_PointerPressed"/>
+                        <Image Name="Oobe1Image" HorizontalAlignment="Center" Margin="20,0,0,0" Height="356" VerticalAlignment="Center" Width="440"/>
+
+                    </Grid>
+
+                    <!-- Horizontal scrolling grid -->
+                <GridView
+			x:Name="ItemGridView"
+            Visibility="Visible"
+			AutomationProperties.AutomationId="ItemsGridView"
+			AutomationProperties.Name="Items"
+			TabIndex="1"
+            Grid.Row="1"
+			Height="330"
+            Width="Auto"
+            Margin="40,0,40,0"
+            Background="Bisque"
+			ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+			SelectionMode="Multiple"
+            IsSwipeEnabled="false" SelectionChanged="ItemGridView_SelectionChanged">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Left" Width="150" Height="150">
+                                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
+                                </Border>
+                                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                                    <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" Height="25" Margin="15,0,15,0" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10" FontSize="12"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                </Grid>
+            </SplitView.Content>
+
+        </SplitView>
     </Grid>
 </Page>
