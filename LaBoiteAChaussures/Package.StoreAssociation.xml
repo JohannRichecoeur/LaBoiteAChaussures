@@ -375,21 +375,6 @@
         <PackageArchitecture>Neutral</PackageArchitecture>
         <PackageMaxArchitectureVersion>1.1.1.8</PackageMaxArchitectureVersion>
       </PackageInfo>
-      <PackageInfo>
-        <OsMinVersion>6.3.0.0</OsMinVersion>
-        <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.1.8</PackageMaxArchitectureVersion>
-      </PackageInfo>
-      <PackageInfo>
-        <OsMinVersion>6.3.0.0</OsMinVersion>
-        <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.1.8</PackageMaxArchitectureVersion>
-      </PackageInfo>
-      <PackageInfo>
-        <OsMinVersion>6.3.0.0</OsMinVersion>
-        <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.1.8</PackageMaxArchitectureVersion>
-      </PackageInfo>
     </BundleInfo>
   </PackageInfoList>
 </StoreAssociation>

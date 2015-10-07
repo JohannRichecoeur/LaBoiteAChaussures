@@ -243,7 +243,7 @@ namespace LaBoiteAChaussures
 
         private void Button_Click(object sender, TappedRoutedEventArgs e)
         {
-            // Frame.Navigate(typeof(PhotoPage), this.randomPhotosList);
+            Frame.Navigate(typeof(PhotoPage), this.randomPhotosList);
         }
 
         private void ItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
