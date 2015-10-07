@@ -58,7 +58,7 @@ namespace LaBoiteAChaussures
 
         private void SetString()
         {
-            this.PageTitle.Text = "Youpi"; //GetRessource("MainTitle");
+            this.PageTitle.Text = GetRessource("MainTitle");
             //this.RefreshAppBarButton.Label = GetRessource("LibraryRefreshAppButton");
             //this.InfosAppBarButton.Label = GetRessource("InfosAppButton");
         }
@@ -123,7 +123,7 @@ namespace LaBoiteAChaussures
                         this.yearListForBindingList.Add(new BindingYearData
                         {
                             Title = storageFolder.Name,
-                            Subtitle = picturesByYearList.ToList().Count + " " + "photos" // GetRessource("MainPage_PictureWord")
+                            Subtitle = picturesByYearList.ToList().Count + " " + GetRessource("MainPage_PictureWord")
                         });
                     }
                 }
@@ -183,7 +183,7 @@ namespace LaBoiteAChaussures
             if (this.photosList.Count != 0)
             {
                 this.randomPhotosList = this.photosList.OrderBy(x => Guid.NewGuid()).ToList();
-                NameTextBlock.Text = this.randomPhotosList.Count + " " + "photos"; // GetRessource("MainPage_PictureWord");
+                NameTextBlock.Text = this.randomPhotosList.Count + " " + GetRessource("MainPage_PictureWord");
                 OpenBox.Visibility = Visibility.Visible;
                 ItemGridView.Visibility = Visibility.Visible;
             }
