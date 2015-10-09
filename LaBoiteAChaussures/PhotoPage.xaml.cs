@@ -5,6 +5,7 @@ using LaBoiteAChaussures.Common;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
@@ -38,6 +39,14 @@ namespace LaBoiteAChaussures
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += this.DataTransferManagerOnDataRequested;
+
+            // Handle back navigation
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested +=
+                (sender, args) =>
+                {
+                    Frame.Navigate(typeof(MainPage));
+                };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -152,12 +161,6 @@ namespace LaBoiteAChaussures
         {
             this.visibility = this.visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             InfosGrid.Visibility = this.visibility;
-            BackButton.Visibility = this.visibility;
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainPage));
         }
 
         private void UIElement_OnPointerPressed(object sender, PointerRoutedEventArgs e)

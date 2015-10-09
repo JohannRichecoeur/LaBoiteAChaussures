@@ -58,17 +58,17 @@
                         </TransitionCollection>
                     </Grid.ChildrenTransitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="140"/>
+                        <RowDefinition Height="80"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Background="DarkSlateGray">
-                        <TextBlock x:Name="PageTitle" FontFamily="Lucida Handwriting" FontSize="50" Foreground="Black"
-				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Top" Margin="40,40,0,0"/>
-                        <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Right" TextWrapping="Wrap"  FontSize="26" FontFamily="Lucida Handwriting" Text="" VerticalAlignment="Bottom"/>
-                        <ProgressRing x:Name="LoadingProgressRing" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80" Foreground="Bisque"/>
-                        <Image Name="OpenBox" Source="Assets/LockScreenLogo.png" Visibility="Visible" HorizontalAlignment="Right" Height="140" VerticalAlignment="Bottom" Width="182" Tapped="Button_Click" PointerPressed="OpenBox_PointerPressed"/>
-                        <Image Name="Oobe1Image" HorizontalAlignment="Center" Margin="20,0,0,0" Height="356" VerticalAlignment="Center" Width="440"/>
-
+                    <Grid Grid.Row="0">
+                        <TextBlock x:Name="PageTitle" FontFamily="Calibri" FontSize="30"
+				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,20,0,0">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
                     </Grid>
 
                     <!-- Horizontal scrolling grid -->
@@ -79,16 +79,14 @@
 			AutomationProperties.Name="Items"
 			TabIndex="1"
             Grid.Row="1"
-			Height="330"
+			Height="Auto"
             Width="Auto"
-            Margin="40,0,40,0"
-            Background="Bisque"
-			ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+            ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
 			SelectionMode="Multiple"
             IsSwipeEnabled="false" SelectionChanged="ItemGridView_SelectionChanged">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Left" Width="150" Height="150">
+                            <Grid HorizontalAlignment="Left" Width="180" Height="180">
                                 <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
                                 </Border>
@@ -100,6 +98,24 @@
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
+
+                    <Grid Grid.Row="1">
+                        <Image Name="Oobe1Image" HorizontalAlignment="Center" Margin="20,0,0,0" Height="356" VerticalAlignment="Center" Width="440"/>
+                        <ProgressRing x:Name="LoadingProgressRing" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80">
+                            <ProgressRing.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </ProgressRing.Foreground>
+                        </ProgressRing>
+                    </Grid>
+                    
+                    <Grid Grid.Row="2">
+                        <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Right" Margin="0,0,50,0" TextWrapping="Wrap"  FontSize="20" FontFamily="Calibri" Text="" VerticalAlignment="Bottom">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        <Image Name="OpenBox" Source="Assets/LockScreenLogo.png" Visibility="Visible" HorizontalAlignment="Right" Height="40" VerticalAlignment="Bottom" Width="40" Tapped="Button_Click" PointerPressed="OpenBox_PointerPressed"/>
+                    </Grid>
                 </Grid>
             </SplitView.Content>
 

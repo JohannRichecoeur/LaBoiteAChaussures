@@ -41,23 +41,5 @@
             <TextBlock Margin="5,85,5,0" Name="ModeleTextBlock" TextWrapping="NoWrap" Text="modèle" FontSize="14" FontFamily="Calibri" />
             <TextBlock Margin="0,115,5,0" Name="PhotoNumberTextBlock" TextWrapping="NoWrap" Text="number" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Right"/>
         </Grid>
-
-        <!-- Back button -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="BackButton" Margin="39,59,39,0"
-                        Style="{StaticResource NavigationBackButtonNormalStyle}"
-                        VerticalAlignment="Top"
-                        AutomationProperties.Name="Back"
-                        AutomationProperties.AutomationId="BackButton"
-                        AutomationProperties.ItemType="Navigation Button"
-                        Visibility="Collapsed" Click="BackButton_Click" >
-                <Button.Foreground>
-                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                </Button.Foreground>
-            </Button>
-        </Grid>
     </Grid>
 </Page>
