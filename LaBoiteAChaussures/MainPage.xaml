@@ -28,24 +28,26 @@
                 <StackPanel>
                     <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
                             Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xEB9F;" Click="MenuButton1_OnClick"
-                     Width="50" Height="50" Background="Transparent"/>
-                        <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" >
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE116;" Click="MenuButton2_OnClick"
-                         Width="50" Height="50" Background="Transparent"/>
-                        <TextBlock Text="Films" FontSize="18" VerticalAlignment="Center" >
-                            <TextBlock.Foreground>
-                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                            </TextBlock.Foreground>
-                        </TextBlock>
-                    </StackPanel>
+
+                    <Button Name="PhotosButton" Background="Transparent" Click="MenuPhotosClick" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Width="30" Margin="8"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xEB9F;" VerticalAlignment="Center"/>
+                            <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                        </Button.Foreground>
+                    </Button>
+
+                    <Button Name="VideosButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE116;" VerticalAlignment="Center"/>
+                            <TextBlock  Text="Videos" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                        </Button.Foreground>
+                    </Button>
                 </StackPanel>
 
             </SplitView.Pane>
@@ -109,6 +111,11 @@
                     </Grid>
                     
                     <Grid Grid.Row="2">
+                        <TextBlock x:Name="RefreshTextBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap"  FontSize="10" FontFamily="Calibri" VerticalAlignment="Bottom">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
                         <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Right" Margin="0,0,50,0" TextWrapping="Wrap"  FontSize="20" FontFamily="Calibri" Text="" VerticalAlignment="Bottom">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />

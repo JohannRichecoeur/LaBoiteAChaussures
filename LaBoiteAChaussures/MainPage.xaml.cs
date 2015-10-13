@@ -63,7 +63,7 @@ namespace LaBoiteAChaussures
         private void SetString()
         {
             this.PageTitle.Text = GetRessource("MainTitle");
-            //this.RefreshAppBarButton.Label = GetRessource("LibraryRefreshAppButton");
+            this.RefreshTextBlock.Text = GetRessource("LibraryRefreshAppButton");
             //this.InfosAppBarButton.Label = GetRessource("InfosAppButton");
         }
 
@@ -235,14 +235,14 @@ namespace LaBoiteAChaussures
             this.MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private void MenuButton1_OnClick(object sender, RoutedEventArgs e)
+        private void MenuPhotosClick(object sender, RoutedEventArgs e)
         {
-            this.PageTitle.Text = "Page 1";
+            this.PageTitle.Text = "Photos";
         }
 
-        private void MenuButton2_OnClick(object sender, RoutedEventArgs e)
+        private void MenuVideosClick(object sender, RoutedEventArgs e)
         {
-            this.PageTitle.Text = "Page 2";
+            this.PageTitle.Text = "Videos";
         }
 
         private void Button_Click(object sender, TappedRoutedEventArgs e)
@@ -263,6 +263,7 @@ namespace LaBoiteAChaussures
                 this.SetAllPicturesInTheBox();
             }
 
+            this.PrepareToOpenTheBox();
         }
 
         private void SetAllPicturesInTheBox()
