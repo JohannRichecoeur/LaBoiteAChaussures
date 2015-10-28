@@ -111,7 +111,7 @@
                     </Grid>
                     
                     <Grid Grid.Row="2">
-                        <TextBlock x:Name="RefreshTextBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap"  FontSize="10" FontFamily="Calibri" VerticalAlignment="Bottom">
+                        <TextBlock x:Name="RefreshTextBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap"  FontSize="10" FontFamily="Calibri" VerticalAlignment="Bottom" Tapped="RefreshTextBlock_Tapped">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>

@@ -278,5 +278,10 @@ namespace LaBoiteAChaussures
         {
             OpenBox.Opacity = 0.5;
         }
+
+        private void RefreshTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            this.RetrievePictureData(true);
+        }
     }
 }
