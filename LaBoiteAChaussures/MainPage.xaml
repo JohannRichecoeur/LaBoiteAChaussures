@@ -26,6 +26,7 @@
 
             <SplitView.Pane>
                 <StackPanel>
+                    <StackPanel>
                     <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
                             Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
 
@@ -48,6 +49,19 @@
                             <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                         </Button.Foreground>
                     </Button>
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button Name="SettingsButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE115;" VerticalAlignment="Center"/>
+                                <TextBlock  Text="Videos" FontSize="18" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </Button.Foreground>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
 
             </SplitView.Pane>
@@ -85,7 +99,8 @@
             Width="Auto"
             ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
 			SelectionMode="Multiple"
-            IsSwipeEnabled="false" SelectionChanged="ItemGridView_SelectionChanged">
+            IsMultiSelectCheckBoxEnabled="False"
+            SelectionChanged="ItemGridView_SelectionChanged">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Left" Width="180" Height="180">

@@ -252,6 +252,8 @@ namespace LaBoiteAChaussures
 
         private void ItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            this.ItemGridView.IsMultiSelectCheckBoxEnabled = this.ItemGridView.SelectedIndex != -1;
+
             this.photosList.Clear();
             foreach (var selectedItem in ItemGridView.SelectedItems)
             {
