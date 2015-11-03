@@ -14,47 +14,35 @@
         x:Name="ItemsViewSource"
         Source="{Binding Items}"/>
     </Page.Resources>
-    
+
     <Grid>
         <!-- Back button and page title -->
         <Grid Background="White">
-            
+
         </Grid>
 
         <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
-                CompactPaneLength="50" OpenPaneLength="150">
+                CompactPaneLength="50" OpenPaneLength="200">
 
             <SplitView.Pane>
-                <StackPanel>
+                <Grid>
                     <StackPanel>
-                    <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
+                        <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
                             Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
 
-                    <Button Name="PhotosButton" Background="Transparent" Click="MenuPhotosClick" BorderThickness="0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock  Width="30" Margin="8"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xEB9F;" VerticalAlignment="Center"/>
-                            <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                        </Button.Foreground>
-                    </Button>
-
-                    <Button Name="VideosButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE116;" VerticalAlignment="Center"/>
-                            <TextBlock  Text="Videos" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                        </Button.Foreground>
-                    </Button>
-                    </StackPanel>
-
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button Name="SettingsButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
+                        <Button Name="PhotosButton" Background="Transparent" Click="MenuPhotosClick" BorderThickness="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE115;" VerticalAlignment="Center"/>
+                                <TextBlock  Width="30" Margin="8"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xEB9F;" VerticalAlignment="Center"/>
+                                <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </Button.Foreground>
+                        </Button>
+
+                        <Button Name="VideosButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE116;" VerticalAlignment="Center"/>
                                 <TextBlock  Text="Videos" FontSize="18" VerticalAlignment="Center" />
                             </StackPanel>
                             <Button.Foreground>
@@ -62,7 +50,19 @@
                             </Button.Foreground>
                         </Button>
                     </StackPanel>
-                </StackPanel>
+
+                    <StackPanel  VerticalAlignment="Bottom">
+                        <Button Name="SettingsButton" Background="Transparent" Click="MenuSettingsClick" BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE115;" VerticalAlignment="Center"/>
+                                <TextBlock  Text="Paramètres" FontSize="18" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Button.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </Button.Foreground>
+                        </Button>
+                    </StackPanel>
+                </Grid>
 
             </SplitView.Pane>
 
@@ -88,7 +88,7 @@
                     </Grid>
 
                     <!-- Horizontal scrolling grid -->
-                <GridView
+                    <GridView
 			x:Name="ItemGridView"
             Visibility="Visible"
 			AutomationProperties.AutomationId="ItemsGridView"
@@ -101,20 +101,20 @@
 			SelectionMode="Multiple"
             IsMultiSelectCheckBoxEnabled="False"
             SelectionChanged="ItemGridView_SelectionChanged">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid HorizontalAlignment="Left" Width="180" Height="180">
-                                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
-                                </Border>
-                                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
-                                    <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" Height="25" Margin="15,0,15,0" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{Binding Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10" FontSize="12"/>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Left" Width="180" Height="180" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                                    <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                                        <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                                        <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" Height="25" Margin="15,0,15,0" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10" FontSize="12"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
 
                     <Grid Grid.Row="1">
                         <Image Name="Oobe1Image" HorizontalAlignment="Center" Margin="20,0,0,0" Height="356" VerticalAlignment="Center" Width="440"/>
@@ -124,7 +124,7 @@
                             </ProgressRing.Foreground>
                         </ProgressRing>
                     </Grid>
-                    
+
                     <Grid Grid.Row="2">
                         <TextBlock x:Name="RefreshTextBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap"  FontSize="10" FontFamily="Calibri" VerticalAlignment="Bottom" Tapped="RefreshTextBlock_Tapped">
                             <TextBlock.Foreground>

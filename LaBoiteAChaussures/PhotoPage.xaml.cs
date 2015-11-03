@@ -26,7 +26,6 @@ namespace LaBoiteAChaussures
         private Visibility visibility = Visibility.Collapsed;
         private double initialPoint;
         private double endPoint;
-        private string currentPhotoPath = "";
 
         public PhotoPage()
         {

@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Search;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,7 +32,7 @@ namespace LaBoiteAChaussures
     {
         private const string PhotosListDictionaryFileName = "photosListDictionary.txt";
         private const string YearListForBindingListFileName = "yearListForBindingList.txt";
-
+        
         private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
         private readonly List<PhotoClass> photosList = new List<PhotoClass>();
         private readonly StorageFolder localFolder = ApplicationData.Current.LocalFolder;
@@ -42,6 +43,8 @@ namespace LaBoiteAChaussures
         private List<PhotoClass> randomPhotosList = new List<PhotoClass>();
         private List<ImageSource> imageListTemp = new List<ImageSource>();
         private ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+        private List<string> picturesFormat = new List<string>() { ".jpg", ".gif", ".png" };
+
 
         public MainPage()
         {
@@ -118,7 +121,7 @@ namespace LaBoiteAChaussures
                 {
                     IReadOnlyList<StorageFile> fileList = (await storageFolder.GetFilesAsync(CommonFileQuery.DefaultQuery));
                     var picturesByYearList = (from p in fileList
-                                              where p.FileType.ToLower().Contains(".jpg") || p.FileType.ToLower().Contains(".gif") || p.FileType.ToLower().Contains(".png")
+                                              where picturesFormat.Any(p.FileType.ToLower().Contains)
                                               select p);
 
                     if (picturesByYearList.Any())
@@ -131,7 +134,7 @@ namespace LaBoiteAChaussures
                         });
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     isError = true;
                 }
@@ -237,12 +240,21 @@ namespace LaBoiteAChaussures
 
         private void MenuPhotosClick(object sender, RoutedEventArgs e)
         {
-            this.PageTitle.Text = "Photos";
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = "Mes photos";
+            this.PhotosButton.Foreground = new SolidColorBrush(Colors.Red);
         }
 
         private void MenuVideosClick(object sender, RoutedEventArgs e)
         {
-            this.PageTitle.Text = "Videos";
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = "Mes videos";
+        }
+
+        private void MenuSettingsClick(object sender, RoutedEventArgs e)
+        {
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = "Paramètres";
         }
 
         private void Button_Click(object sender, TappedRoutedEventArgs e)
@@ -252,8 +264,6 @@ namespace LaBoiteAChaussures
 
         private void ItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.ItemGridView.IsMultiSelectCheckBoxEnabled = this.ItemGridView.SelectedIndex != -1;
-
             this.photosList.Clear();
             foreach (var selectedItem in ItemGridView.SelectedItems)
             {
@@ -284,6 +294,22 @@ namespace LaBoiteAChaussures
         private void RefreshTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.RetrievePictureData(true);
+        }
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (this.ItemGridView.SelectedIndex == -1)
+            {
+                this.ItemGridView.IsMultiSelectCheckBoxEnabled = true;
+            }
+        }
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (this.ItemGridView.SelectedIndex == -1)
+            {
+                this.ItemGridView.IsMultiSelectCheckBoxEnabled = false;
+            }
         }
     }
 }
