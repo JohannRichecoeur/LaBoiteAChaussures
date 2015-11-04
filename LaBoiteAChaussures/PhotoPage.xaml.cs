@@ -61,7 +61,7 @@ namespace LaBoiteAChaussures
         private async void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs e)
         {
             DataRequestDeferral deferral = e.Request.GetDeferral();
-            e.Request.Data.Properties.Title = MainPage.GetRessource("PhotoShare");
+            e.Request.Data.Properties.Title = Helper.GetRessource("PhotoShare");
             e.Request.Data.SetBitmap(RandomAccessStreamReference.CreateFromFile(await StorageFile.GetFileFromPathAsync(this.currentPicture.Path)));
             deferral.Complete();
         }

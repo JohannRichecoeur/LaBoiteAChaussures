@@ -154,4 +154,12 @@
   <data name="PhotoShare" xml:space="preserve">
     <value>Share this photo</value>
   </data>
+  <data name="PicturesTitle" xml:space="preserve">
+    <value>My pictures</value>
+    <comment>Title of the main photos page</comment>
+  </data>
+  <data name="VideosTitle" xml:space="preserve">
+    <value>My videos</value>
+    <comment>Title of the main videos page</comment>
+  </data>
 </root>

@@ -2,7 +2,6 @@
     x:Class="LaBoiteAChaussures.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LaBoiteAChaussures"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
@@ -16,11 +15,6 @@
     </Page.Resources>
 
     <Grid>
-        <!-- Back button and page title -->
-        <Grid Background="White">
-
-        </Grid>
-
         <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
                 CompactPaneLength="50" OpenPaneLength="200">
 
@@ -74,13 +68,13 @@
                         </TransitionCollection>
                     </Grid.ChildrenTransitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock x:Name="PageTitle" FontFamily="Calibri" FontSize="30"
-				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="0,20,0,0">
+                        <TextBlock x:Name="PageTitle" FontFamily="Cambria" Margin="5" FontSize="30"
+				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>
@@ -97,6 +91,7 @@
             Grid.Row="1"
 			Height="Auto"
             Width="Auto"
+            Margin="5"
             ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
 			SelectionMode="Multiple"
             IsMultiSelectCheckBoxEnabled="False"

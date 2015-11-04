@@ -1,55 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Search;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using LaBoiteAChaussures.Common;
 using Newtonsoft.Json;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace LaBoiteAChaussures
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage
     {
+        public static ApplicationDataContainer LocalSettings = ApplicationData.Current.LocalSettings;
+
         private const string PhotosListDictionaryFileName = "photosListDictionary.txt";
         private const string YearListForBindingListFileName = "yearListForBindingList.txt";
         
         private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
         private readonly List<PhotoClass> photosList = new List<PhotoClass>();
         private readonly StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        private readonly NavigationHelper navigationHelper;
 
         private Dictionary<string, IEnumerable<PhotoClass>> photosListDictionary = new Dictionary<string, IEnumerable<PhotoClass>>();
         private List<BindingYearData> yearListForBindingList = new List<BindingYearData>();
         private List<PhotoClass> randomPhotosList = new List<PhotoClass>();
-        private List<ImageSource> imageListTemp = new List<ImageSource>();
-        private ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
         private List<string> picturesFormat = new List<string>() { ".jpg", ".gif", ".png" };
 
 
         public MainPage()
         {
             this.InitializeComponent();
-            this.navigationHelper = new NavigationHelper(this);
             this.OobeWork();
             this.RetrievePictureData();
             this.SetString();
@@ -65,14 +51,8 @@ namespace LaBoiteAChaussures
 
         private void SetString()
         {
-            this.PageTitle.Text = GetRessource("MainTitle");
-            this.RefreshTextBlock.Text = GetRessource("LibraryRefreshAppButton");
+            this.RefreshTextBlock.Text = Helper.GetRessource("LibraryRefreshAppButton");
             //this.InfosAppBarButton.Label = GetRessource("InfosAppButton");
-        }
-
-        public static string GetRessource(string ressourceName)
-        {
-            return Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView().GetString(ressourceName);
         }
 
         private async void RetrievePictureData(bool forceReload = false)
@@ -130,7 +110,7 @@ namespace LaBoiteAChaussures
                         this.yearListForBindingList.Add(new BindingYearData
                         {
                             Title = storageFolder.Name,
-                            Subtitle = picturesByYearList.ToList().Count + " " + GetRessource("MainPage_PictureWord")
+                            Subtitle = picturesByYearList.ToList().Count + " " + Helper.GetRessource("MainPage_PictureWord")
                         });
                     }
                 }
@@ -190,13 +170,13 @@ namespace LaBoiteAChaussures
             if (this.photosList.Count != 0)
             {
                 this.randomPhotosList = this.photosList.OrderBy(x => Guid.NewGuid()).ToList();
-                NameTextBlock.Text = this.randomPhotosList.Count + " " + GetRessource("MainPage_PictureWord");
+                NameTextBlock.Text = this.randomPhotosList.Count + " " + Helper.GetRessource("MainPage_PictureWord");
                 OpenBox.Visibility = Visibility.Visible;
                 ItemGridView.Visibility = Visibility.Visible;
             }
             else
             {
-                NameTextBlock.Text = GetRessource("MainPage_NoPictureInLibrary");
+                NameTextBlock.Text = Helper.GetRessource("MainPage_NoPictureInLibrary");
             }
 
             LoadingProgressRing.IsActive = false;
@@ -220,7 +200,7 @@ namespace LaBoiteAChaussures
 
         private void OobeWork()
         {
-            if (this.localSettings.Values["oobe"] == null)
+            if (!Helper.DoesLocalSettingsExists(LocalSettingsValue.oobe))
             {
                 LoadingProgressRing.Margin = new Thickness(0, 450, 0, 0);
             }
@@ -228,9 +208,9 @@ namespace LaBoiteAChaussures
             {
                 LoadingProgressRing.Margin = new Thickness(0, 0, 0, 0);
                 Oobe1Image.Visibility = Visibility.Collapsed;
-            }
 
-            this.localSettings.Values["oobe"] = true;
+                Helper.SetLocalSettings(LocalSettingsValue.oobe, true);
+            }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -241,14 +221,13 @@ namespace LaBoiteAChaussures
         private void MenuPhotosClick(object sender, RoutedEventArgs e)
         {
             this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = "Mes photos";
-            this.PhotosButton.Foreground = new SolidColorBrush(Colors.Red);
+            this.PageTitle.Text = Helper.GetRessource("PicturesTitle");
         }
 
         private void MenuVideosClick(object sender, RoutedEventArgs e)
         {
             this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = "Mes videos";
+            this.PageTitle.Text = Helper.GetRessource("VideosTitle");
         }
 
         private void MenuSettingsClick(object sender, RoutedEventArgs e)

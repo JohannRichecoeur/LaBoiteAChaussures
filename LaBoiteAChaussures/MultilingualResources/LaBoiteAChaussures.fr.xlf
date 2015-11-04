@@ -54,6 +54,16 @@
           <source>Share this photo</source>
           <target state="translated">Partager cette photo</target>
         </trans-unit>
+        <trans-unit id="PicturesTitle" translate="yes" xml:space="preserve">
+          <source>My pictures</source>
+          <target state="translated">Mes photos</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title of the main photos page</note>
+        </trans-unit>
+        <trans-unit id="VideosTitle" translate="yes" xml:space="preserve">
+          <source>My videos</source>
+          <target state="translated">Mes vidéos</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title of the main videos page</note>
+        </trans-unit>
       </group>
     </body>
   </file>
