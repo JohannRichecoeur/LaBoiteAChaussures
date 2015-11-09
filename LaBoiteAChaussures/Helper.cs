@@ -12,6 +12,11 @@
             MainPage.LocalSettings.Values[settings.ToString()] = value;
         }
 
+        public static object GetLocalSettings(LocalSettingsValue settings)
+        {
+            return DoesLocalSettingsExists(settings) ? MainPage.LocalSettings.Values[settings.ToString()] : null;
+        }
+
         public static bool DoesLocalSettingsExists(LocalSettingsValue settings)
         {
             if (MainPage.LocalSettings.Values[settings.ToString()] == null)

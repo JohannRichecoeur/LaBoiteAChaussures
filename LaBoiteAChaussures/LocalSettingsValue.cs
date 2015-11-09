@@ -2,6 +2,7 @@
 {
     public enum LocalSettingsValue
     {
-        oobe
+        oobe,
+        selectedpivot
     }
 }

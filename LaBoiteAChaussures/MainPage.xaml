@@ -15,6 +15,7 @@
     </Page.Resources>
 
     <Grid>
+        <Grid.Background>White</Grid.Background>
         <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
                 CompactPaneLength="50" OpenPaneLength="200">
 
