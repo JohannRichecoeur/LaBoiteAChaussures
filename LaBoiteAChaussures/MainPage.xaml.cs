@@ -4,12 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using LaBoiteAChaussures.Common;
 using Newtonsoft.Json;
@@ -24,9 +22,9 @@ namespace LaBoiteAChaussures
         private const string YearListForBindingListFileName = "yearListForBindingList.txt";
         private const string PivotPhotos = "photos";
         private const string PivotVideos = "videos";
+        private const string PivotSettings = "settings";
 
 
-        private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
         private readonly List<PhotoClass> photosList = new List<PhotoClass>();
         private readonly StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 
@@ -41,7 +39,6 @@ namespace LaBoiteAChaussures
             this.InitializeComponent();
             this.OobeWork();
             this.SelectPivot();
-            this.RetrievePictureData();
             this.SetString();
 
             // Hide Back navigation button
@@ -50,31 +47,34 @@ namespace LaBoiteAChaussures
 
         private void SelectPivot()
         {
-            if ((string) Helper.GetLocalSettings(LocalSettingsValue.selectedpivot) == PivotPhotos)
+            switch ((string)Helper.GetLocalSettings(LocalSettingsValue.selectedpivot))
             {
-                this.MySplitView.IsPaneOpen = false;
-                this.PageTitle.Text = Helper.GetRessource("PicturesTitle");
-            }
-            else
-            {
-                this.MySplitView.IsPaneOpen = false;
-                this.PageTitle.Text = Helper.GetRessource("VideosTitle");
+                case PivotVideos:
+                    this.DisplayVideosPivot();
+                    break;
+                case PivotSettings:
+                    this.DisplaySettingsPivot();
+                    break;
+                default:
+                    this.DisplayPhotosPivot();
+                    break;
             }
         }
 
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
-        }
+        public ObservableDictionary DefaultViewModel { get; } = new ObservableDictionary();
 
         private void SetString()
         {
             this.RefreshTextBlock.Text = Helper.GetRessource("LibraryRefreshAppButton");
+            this.TextForEmptyGrid.Text = Helper.GetRessource("MainPage_NoPictureInLibrary");
+            this.PhotosButtonName.Text = Helper.GetRessource("PicturesTitle");
+            this.SettingsButtonName.Text = Helper.GetRessource("SettingsTitle");
             //this.InfosAppBarButton.Label = GetRessource("InfosAppButton");
         }
 
         private async void RetrievePictureData(bool forceReload = false)
         {
+            this.TextForEmptyGrid.Visibility = Visibility.Collapsed;
             LoadingProgressRing.IsActive = true;
             // RefreshAppBarButton.IsEnabled = false;
             this.photosListDictionary.Clear();
@@ -101,6 +101,8 @@ namespace LaBoiteAChaussures
 
             await this.SetThumbnailImage();
             this.DefaultViewModel["Items"] = this.yearListForBindingList; // Add the items to the main binding items collection
+            //this.yearListForBindingList.Clear();
+            this.TextForEmptyGrid.Visibility = this.yearListForBindingList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
             this.SetAllPicturesInTheBox();
             this.PrepareToOpenTheBox();
@@ -243,22 +245,17 @@ namespace LaBoiteAChaussures
 
         private void MenuPhotosClick(object sender, RoutedEventArgs e)
         {
-            this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = Helper.GetRessource("PicturesTitle");
-            Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotPhotos);
+            this.DisplayPhotosPivot();
         }
 
         private void MenuVideosClick(object sender, RoutedEventArgs e)
         {
-            this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = Helper.GetRessource("VideosTitle");
-            Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotVideos);
+            this.DisplayVideosPivot();
         }
 
         private void MenuSettingsClick(object sender, RoutedEventArgs e)
         {
-            this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = "Paramètres";
+            this.DisplaySettingsPivot();
         }
 
         private void Button_Click(object sender, TappedRoutedEventArgs e)
@@ -314,6 +311,34 @@ namespace LaBoiteAChaussures
             {
                 this.ItemGridView.IsMultiSelectCheckBoxEnabled = false;
             }
+        }
+
+        private void DisplayPhotosPivot()
+        {
+            this.RetrievePictureData();
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = Helper.GetRessource("PicturesTitle");
+            Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotPhotos);
+
+            this.ItemGridView.Visibility = Visibility.Visible;
+            this.SettingsGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private void DisplayVideosPivot()
+        {
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = Helper.GetRessource("VideosTitle");
+            Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotVideos);
+        }
+
+        private void DisplaySettingsPivot()
+        {
+            this.MySplitView.IsPaneOpen = false;
+            this.PageTitle.Text = Helper.GetRessource("SettingsTitle");
+            Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotSettings);
+
+            this.ItemGridView.Visibility = Visibility.Collapsed;
+            this.SettingsGrid.Visibility = Visibility.Visible;
         }
     }
 }

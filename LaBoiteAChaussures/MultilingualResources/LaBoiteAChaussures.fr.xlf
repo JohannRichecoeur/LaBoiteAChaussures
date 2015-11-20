@@ -6,25 +6,9 @@
     </header>
     <body>
       <group id="LABOITEACHAUSSURES/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="AboutMessage_Close" translate="yes" xml:space="preserve">
-          <source>Close</source>
-          <target state="translated">Fermer</target>
-        </trans-unit>
-        <trans-unit id="AboutMessage_Dev" translate="yes" xml:space="preserve">
-          <source>Jean-Eric Hourchon (jean-eric.hourchon@live.fr)</source>
-          <target state="translated">Jean-Eric Hourchon (jean-eric.hourchon@live.fr)</target>
-        </trans-unit>
-        <trans-unit id="AboutMessage_SendMail" translate="yes" xml:space="preserve">
-          <source>Send an email</source>
-          <target state="translated">Envoyer un email</target>
-        </trans-unit>
-        <trans-unit id="AboutMessage_Version" translate="yes" xml:space="preserve">
-          <source>Version = 1.1</source>
-          <target state="translated">Version = 1.1</target>
-        </trans-unit>
         <trans-unit id="ErrorMessage_CouldNotLoadPicture" translate="yes" xml:space="preserve">
           <source>Sorry, it seems some pictures could not be opened. Please sync again your picture library.</source>
-          <target state="translated">Sorry, it seems some pictures could not be opened. Please sync again your picture library.</target>
+          <target state="translated">Désolé, il semble que des photos ne puissent pas être ouvertes. Merci de synchroniser à nouveau votre bibliothèque de photos.</target>
         </trans-unit>
         <trans-unit id="InfosAppButton" translate="yes" xml:space="preserve">
           <source>About</source>
@@ -63,6 +47,23 @@
           <source>My videos</source>
           <target state="translated">Mes vidéos</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Title of the main videos page</note>
+        </trans-unit>
+        <trans-unit id="SettingsTitle" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Paramètres</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title of the settings page</note>
+        </trans-unit>
+        <trans-unit id="settings_Dev.Content" translate="yes" xml:space="preserve">
+          <source>Jean-Eric Hourchon</source>
+          <target state="translated">Jean-Eric Hourchon</target>
+        </trans-unit>
+        <trans-unit id="settings_Dev.NavigateUri" translate="yes" xml:space="preserve">
+          <source>mailto:jean-eric.hourchon@live.fr?subject=Pictures box, Windows 10</source>
+          <target state="translated">mailto:jean-eric.hourchon@live.fr?subject=La boîte à chaussures, Windows 10</target>
+        </trans-unit>
+        <trans-unit id="settings_Version.Text" translate="yes" xml:space="preserve">
+          <source>Version = 2.0</source>
+          <target state="translated">Version = 2.0</target>
         </trans-unit>
       </group>
     </body>

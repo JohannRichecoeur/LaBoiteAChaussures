@@ -45,6 +45,7 @@ namespace LaBoiteAChaussures
                 (sender, args) =>
                 {
                     Frame.Navigate(typeof(MainPage));
+                    args.Handled = true;
                 };
         }
 

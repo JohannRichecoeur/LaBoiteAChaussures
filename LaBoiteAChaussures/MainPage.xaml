@@ -8,49 +8,156 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <!-- Collection of items displayed by this page -->
-        <CollectionViewSource
-        x:Name="ItemsViewSource"
-        Source="{Binding Items}"/>
+        <!--  Collection of items displayed by this page  -->
+        <CollectionViewSource x:Name="ItemsViewSource" Source="{Binding Items}" />
+
+        <DataTemplate x:Key="PhoneItemTemplate">
+            <Grid
+                Width="760"
+                Height="80"
+                PointerEntered="Grid_PointerEntered"
+                PointerExited="Grid_PointerExited">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image
+                        Width="80"
+                        Height="80"
+                        HorizontalAlignment="Left"
+                        Source="{Binding ImageSource}"
+                        Stretch="UniformToFill" />
+                </Border>
+                <StackPanel Grid.Column="1" Margin="5" VerticalAlignment="Center">
+                    <TextBlock
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Height="20"
+                        FontWeight="SemiBold"
+                        Foreground="DarkSlateGray"
+                        Text="{Binding Title}" />
+                    <TextBlock
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        FontSize="12"
+                        Foreground="DarkGray"
+                        Text="{Binding Subtitle}"
+                        TextWrapping="NoWrap" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DesktopItemTemplate">
+            <Grid
+                Width="180"
+                Height="180"
+                HorizontalAlignment="Left"
+                PointerEntered="Grid_PointerEntered"
+                PointerExited="Grid_PointerExited">
+                <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Height="25"
+                        Margin="15,0,15,0"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}"
+                        Text="{Binding Title}" />
+                    <TextBlock
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Margin="15,0,15,10"
+                        FontSize="12"
+                        Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                        Text="{Binding Subtitle}"
+                        TextWrapping="NoWrap" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="PhoneView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ItemGridView.ItemTemplate" Value="{StaticResource PhoneItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="760" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ItemGridView.ItemTemplate" Value="{StaticResource DesktopItemTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.Background>White</Grid.Background>
-        <SplitView x:Name="MySplitView" DisplayMode="CompactInline"  IsPaneOpen="False" 
-                CompactPaneLength="50" OpenPaneLength="200">
+        <SplitView
+            x:Name="MySplitView"
+            CompactPaneLength="50"
+            DisplayMode="CompactInline"
+            IsPaneOpen="False"
+            OpenPaneLength="200">
 
             <SplitView.Pane>
                 <Grid>
                     <StackPanel>
-                        <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
-                            Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                        <Button
+                            x:Name="HamburgerButton"
+                            Width="50"
+                            Height="50"
+                            Background="Transparent"
+                            Click="HamburgerButton_Click"
+                            Content="&#xE700;"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="20" />
 
-                        <Button Name="PhotosButton" Background="Transparent" Click="MenuPhotosClick" BorderThickness="0">
+                        <Button Background="Transparent" BorderThickness="0" Click="MenuPhotosClick">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  Width="30" Margin="8"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xEB9F;" VerticalAlignment="Center"/>
-                                <TextBlock  Text="Photos" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock
+                                    Width="30"
+                                    Margin="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="20"
+                                    Text="&#xEB9F;" />
+                                <TextBlock Name="PhotosButtonName" VerticalAlignment="Center" FontSize="18" />
                             </StackPanel>
                             <Button.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </Button.Foreground>
                         </Button>
 
-                        <Button Name="VideosButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
+                        <!--<Button Name="VideosButton" Background="Transparent" Click="MenuVideosClick" BorderThickness="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE116;" VerticalAlignment="Center"/>
+                                <TextBlock  Width="30" Margin="8"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" FontSize="20" Text="&#xE116;" VerticalAlignment="Center"/>
                                 <TextBlock  Text="Videos" FontSize="18" VerticalAlignment="Center" />
                             </StackPanel>
                             <Button.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </Button.Foreground>
-                        </Button>
+                        </Button>-->
                     </StackPanel>
 
-                    <StackPanel  VerticalAlignment="Bottom">
-                        <Button Name="SettingsButton" Background="Transparent" Click="MenuSettingsClick" BorderThickness="0">
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button Background="Transparent" BorderThickness="0" Click="MenuSettingsClick">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  Width="30" Margin="7"  HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE115;" VerticalAlignment="Center"/>
-                                <TextBlock  Text="Paramètres" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock
+                                    Width="30"
+                                    Margin="7"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="20"
+                                    Text="&#xE115;" />
+                                <TextBlock Name="SettingsButtonName" VerticalAlignment="Center" FontSize="18" />
                             </StackPanel>
                             <Button.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
@@ -65,56 +172,70 @@
                 <Grid>
                     <Grid.ChildrenTransitions>
                         <TransitionCollection>
-                            <EntranceThemeTransition/>
+                            <EntranceThemeTransition />
                         </TransitionCollection>
                     </Grid.ChildrenTransitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBlock x:Name="PageTitle" FontFamily="Cambria" Margin="5" FontSize="30"
-				        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center">
+                        <TextBlock
+                            x:Name="PageTitle"
+                            Margin="5"
+                            VerticalAlignment="Center"
+                            FontFamily="Cambria"
+                            FontSize="30"
+                            IsHitTestVisible="false"
+                            TextWrapping="NoWrap">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>
                         </TextBlock>
                     </Grid>
 
-                    <!-- Horizontal scrolling grid -->
+                    <TextBlock Name="TextForEmptyGrid" Grid.Row="1" Visibility="Collapsed" />
+
+                    <!--  Settings text  -->
+                    <Grid Name="SettingsGrid" Grid.Row="1" Visibility="Collapsed">
+                        <StackPanel Margin="5" VerticalAlignment="Top">
+                            <HyperlinkButton x:Uid="settings_Dev" FontSize="18" />
+                            <TextBlock x:Uid="settings_Version" FontSize="16" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!--  Horizontal scrolling grid  -->
                     <GridView
-			x:Name="ItemGridView"
-            Visibility="Visible"
-			AutomationProperties.AutomationId="ItemsGridView"
-			AutomationProperties.Name="Items"
-			TabIndex="1"
-            Grid.Row="1"
-			Height="Auto"
-            Width="Auto"
-            Margin="5"
-            ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
-			SelectionMode="Multiple"
-            IsMultiSelectCheckBoxEnabled="False"
-            SelectionChanged="ItemGridView_SelectionChanged">
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Left" Width="180" Height="180" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                                    <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                                        <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
-                                    </Border>
-                                    <StackPanel VerticalAlignment="Bottom" Background="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}">
-                                        <TextBlock Text="{Binding Title}" Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" Height="25" Margin="15,0,15,0" FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding Subtitle}" Foreground="{ThemeResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource BaseTextBlockStyle}" TextWrapping="NoWrap" Margin="15,0,15,10" FontSize="12"/>
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                        x:Name="ItemGridView"
+                        AutomationProperties.AutomationId="ItemsGridView"
+                        AutomationProperties.Name="Items"
+                        Grid.Row="1"
+                        Width="Auto"
+                        Height="Auto"
+                        Margin="5"
+                        IsMultiSelectCheckBoxEnabled="False"
+                        ItemTemplate="{StaticResource DesktopItemTemplate}"
+                        ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+                        SelectionChanged="ItemGridView_SelectionChanged"
+                        SelectionMode="Multiple"
+                        TabIndex="1"
+                        Visibility="Visible" />
 
                     <Grid Grid.Row="1">
-                        <Image Name="Oobe1Image" HorizontalAlignment="Center" Margin="20,0,0,0" Height="356" VerticalAlignment="Center" Width="440"/>
-                        <ProgressRing x:Name="LoadingProgressRing" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80">
+                        <Image
+                            Name="Oobe1Image"
+                            Width="440"
+                            Height="356"
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                        <ProgressRing
+                            x:Name="LoadingProgressRing"
+                            Width="80"
+                            Height="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                             <ProgressRing.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </ProgressRing.Foreground>
@@ -122,21 +243,45 @@
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <TextBlock x:Name="RefreshTextBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap"  FontSize="10" FontFamily="Calibri" VerticalAlignment="Bottom" Tapped="RefreshTextBlock_Tapped">
+                        <TextBlock
+                            x:Name="RefreshTextBlock"
+                            Margin="5"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            FontFamily="Calibri"
+                            FontSize="10"
+                            Tapped="RefreshTextBlock_Tapped"
+                            TextWrapping="Wrap">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>
                         </TextBlock>
-                        <TextBlock x:Name="NameTextBlock" HorizontalAlignment="Right" Margin="0,0,50,0" TextWrapping="Wrap"  FontSize="20" FontFamily="Calibri" Text="" VerticalAlignment="Bottom">
+                        <TextBlock
+                            x:Name="NameTextBlock"
+                            Margin="0,0,50,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            FontFamily="Calibri"
+                            FontSize="20"
+                            Text=""
+                            TextWrapping="Wrap">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </TextBlock.Foreground>
                         </TextBlock>
-                        <Image Name="OpenBox" Source="Assets/LockScreenLogo.png" Visibility="Visible" HorizontalAlignment="Right" Height="40" VerticalAlignment="Bottom" Width="40" Tapped="Button_Click" PointerPressed="OpenBox_PointerPressed"/>
+                        <Image
+                            Name="OpenBox"
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            PointerPressed="OpenBox_PointerPressed"
+                            Source="Assets/LockScreenLogo.png"
+                            Tapped="Button_Click"
+                            Visibility="Visible" />
                     </Grid>
                 </Grid>
             </SplitView.Content>
-
         </SplitView>
     </Grid>
 </Page>

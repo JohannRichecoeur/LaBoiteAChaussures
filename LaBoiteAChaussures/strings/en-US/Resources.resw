@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutMessage_Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="AboutMessage_Dev" xml:space="preserve">
-    <value>Jean-Eric Hourchon (jean-eric.hourchon@live.fr)</value>
-  </data>
-  <data name="AboutMessage_SendMail" xml:space="preserve">
-    <value>Send an email</value>
-  </data>
-  <data name="AboutMessage_Version" xml:space="preserve">
-    <value>Version = 1.1</value>
+  <data name="settings_Version.Text" xml:space="preserve">
+    <value>Version = 2.0</value>
   </data>
   <data name="ErrorMessage_CouldNotLoadPicture" xml:space="preserve">
     <value>Sorry, it seems some pictures could not be opened. Please sync again your picture library.</value>
@@ -158,8 +149,18 @@
     <value>My pictures</value>
     <comment>Title of the main photos page</comment>
   </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+    <comment>Title of the settings page</comment>
+  </data>
+  <data name="settings_Dev.Content" xml:space="preserve">
+    <value>Jean-Eric Hourchon</value>
+  </data>
   <data name="VideosTitle" xml:space="preserve">
     <value>My videos</value>
     <comment>Title of the main videos page</comment>
+  </data>
+  <data name="settings_Dev.NavigateUri" xml:space="preserve">
+    <value>mailto:jean-eric.hourchon@live.fr?subject=Pictures box, Windows 10</value>
   </data>
 </root>
