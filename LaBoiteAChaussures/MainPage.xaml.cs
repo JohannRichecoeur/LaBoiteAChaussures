@@ -222,11 +222,9 @@ namespace LaBoiteAChaussures
         {
             if (!Helper.DoesLocalSettingsExists(LocalSettingsValue.oobe))
             {
-                LoadingProgressRing.Margin = new Thickness(0, 450, 0, 0);
             }
             else
             {
-                LoadingProgressRing.Margin = new Thickness(0, 0, 0, 0);
                 Oobe1Image.Visibility = Visibility.Collapsed;
 
                 Helper.SetLocalSettings(LocalSettingsValue.oobe, true);
