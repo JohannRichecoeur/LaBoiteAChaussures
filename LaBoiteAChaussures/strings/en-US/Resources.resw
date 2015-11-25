@@ -127,11 +127,11 @@
     <value>About</value>
     <comment>AppBar button "About"</comment>
   </data>
-  <data name="LibraryRefreshAppButton" xml:space="preserve">
+  <data name="RefreshTextBlock.Text" xml:space="preserve">
     <value>Sync your picture library</value>
     <comment>AppBar button "Refresh the library"</comment>
   </data>
-  <data name="MainPage_NoPictureInLibrary" xml:space="preserve">
+  <data name="TextForEmptyGrid.Text" xml:space="preserve">
     <value>No pictures in the library</value>
   </data>
   <data name="MainPage_PictureWord" xml:space="preserve">
@@ -145,11 +145,11 @@
   <data name="PhotoShare" xml:space="preserve">
     <value>Share this photo</value>
   </data>
-  <data name="PicturesTitle" xml:space="preserve">
+  <data name="PhotosButton.Text" xml:space="preserve">
     <value>My pictures</value>
     <comment>Title of the main photos page</comment>
   </data>
-  <data name="SettingsTitle" xml:space="preserve">
+  <data name="SettingsButton.Text" xml:space="preserve">
     <value>Settings</value>
     <comment>Title of the settings page</comment>
   </data>
@@ -162,5 +162,9 @@
   </data>
   <data name="settings_Dev.NavigateUri" xml:space="preserve">
     <value>mailto:jean-eric.hourchon@live.fr?subject=Pictures box, Windows 10</value>
+  </data>
+  <data name="OpenBoxMain.Text" xml:space="preserve">
+    <value>Open the box</value>
+    <comment>Text of the button to open the box</comment>
   </data>
 </root>

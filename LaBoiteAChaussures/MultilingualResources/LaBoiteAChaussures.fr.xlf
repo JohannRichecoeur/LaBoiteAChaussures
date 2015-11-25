@@ -15,15 +15,6 @@
           <target state="translated">A propos</target>
           <note from="MultilingualBuild" annotates="source" priority="2">AppBar button "About"</note>
         </trans-unit>
-        <trans-unit id="LibraryRefreshAppButton" translate="yes" xml:space="preserve">
-          <source>Sync your picture library</source>
-          <target state="translated">Synchroniser votre bibliothèque</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">AppBar button "Refresh the library"</note>
-        </trans-unit>
-        <trans-unit id="MainPage_NoPictureInLibrary" translate="yes" xml:space="preserve">
-          <source>No pictures in the library</source>
-          <target state="translated">Aucune photo dans votre bibliothèque</target>
-        </trans-unit>
         <trans-unit id="MainPage_PictureWord" translate="yes" xml:space="preserve">
           <source>pictures</source>
           <target state="translated">photos</target>
@@ -38,20 +29,10 @@
           <source>Share this photo</source>
           <target state="translated">Partager cette photo</target>
         </trans-unit>
-        <trans-unit id="PicturesTitle" translate="yes" xml:space="preserve">
-          <source>My pictures</source>
-          <target state="translated">Mes photos</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">Title of the main photos page</note>
-        </trans-unit>
         <trans-unit id="VideosTitle" translate="yes" xml:space="preserve">
           <source>My videos</source>
           <target state="translated">Mes vidéos</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Title of the main videos page</note>
-        </trans-unit>
-        <trans-unit id="SettingsTitle" translate="yes" xml:space="preserve">
-          <source>Settings</source>
-          <target state="translated">Paramètres</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">Title of the settings page</note>
         </trans-unit>
         <trans-unit id="settings_Dev.Content" translate="yes" xml:space="preserve">
           <source>Jean-Eric Hourchon</source>
@@ -64,6 +45,30 @@
         <trans-unit id="settings_Version.Text" translate="yes" xml:space="preserve">
           <source>Version = 2.0</source>
           <target state="translated">Version = 2.0</target>
+        </trans-unit>
+        <trans-unit id="RefreshTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Sync your picture library</source>
+          <target state="translated">Synchronisez votre bibliothèque d'images</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">AppBar button "Refresh the library"</note>
+        </trans-unit>
+        <trans-unit id="TextForEmptyGrid.Text" translate="yes" xml:space="preserve">
+          <source>No pictures in the library</source>
+          <target state="translated">Aucune photo dans votre bibliothèque</target>
+        </trans-unit>
+        <trans-unit id="PhotosButton.Text" translate="yes" xml:space="preserve">
+          <source>My pictures</source>
+          <target state="translated">Mes photos</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title of the main photos page</note>
+        </trans-unit>
+        <trans-unit id="SettingsButton.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Paramètres</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Title of the settings page</note>
+        </trans-unit>
+        <trans-unit id="OpenBoxMain.Text" translate="yes" xml:space="preserve">
+          <source>Open the box</source>
+          <target state="translated">Ouvrir la boîte</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Text of the button to open the box</note>
         </trans-unit>
       </group>
     </body>

@@ -1,45 +1,148 @@
 ﻿<Page
     x:Class="LaBoiteAChaussures.PhotoPage"
-    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:interop="using:Windows.UI.Xaml.Interop"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d">
-    
-    
+
     <Grid Name="MainGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
-                <EntranceThemeTransition/>
+                <EntranceThemeTransition />
             </TransitionCollection>
         </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.Resources>
             <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{ThemeResource SystemAccentColor}"/>
+                <Setter Property="Foreground" Value="{ThemeResource SystemAccentColor}" />
             </Style>
         </Grid.Resources>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="PhoneView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LeftArrow.Visibility" Value="Collapsed" />
+                        <Setter Target="RightArrow.Visibility" Value="Collapsed" />
+                        <Setter Target="GridInfosBorder.VerticalAlignment" Value="Center" />
+                        <Setter Target="GridInfosBorder.HorizontalAlignment" Value="Center" />
+                        <Setter Target="GridInfosBorder.Margin" Value="0,0,0,0" />
+                        <Setter Target="InfosGrid.Height" Value="Auto" />
+                        <Setter Target="InfosGrid.MinWidth" Value="0" />
+                        <Setter Target="NameTextBlock.TextWrapping" Value="Wrap" />
+                        <Setter Target="PathTextBlock.TextWrapping" Value="Wrap" />
+                        <Setter Target="TakenDateTextBlock.TextWrapping" Value="Wrap" />
+                        <Setter Target="MarqueTextBlock.TextWrapping" Value="Wrap" />
+                        <Setter Target="ModeleTextBlock.TextWrapping" Value="Wrap" />
+                        <Setter Target="PhotoNumberTextBlock.TextWrapping" Value="Wrap" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="760" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid>
-            <Image Name="ImageBox" Visibility="Visible"/>
-            <Button BorderThickness="0" Content="&#xE09A;" Padding="0,0,0,10" FontSize="30" FontFamily="Segoe UI Symbol" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Click="PreviousButton_Click" Height="70" Width="70"/>
-            <Button BorderThickness="0" Content="&#xE09B;" Padding="0,0,0,10" FontSize="30" FontFamily="Segoe UI Symbol" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center" Click="NextButton_Click" Height="70" Width="70"/>
+
+            <Image Name="ImageBox" Visibility="Visible" />
+            <Button
+                Name="LeftArrow"
+                Width="70"
+                Height="70"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                BorderThickness="0"
+                Click="PreviousButton_Click"
+                Content="&#xE09A;"
+                FontFamily="Segoe UI Symbol"
+                FontSize="30"
+                Padding="0,0,0,10" />
+            <Button
+                Name="RightArrow"
+                Width="70"
+                Height="70"
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                BorderThickness="0"
+                Click="NextButton_Click"
+                Content="&#xE09B;"
+                FontFamily="Segoe UI Symbol"
+                FontSize="30"
+                Padding="0,0,0,10" />
         </Grid>
-        <Grid Name="InfosGrid" Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20" Height="140" Width="Auto" MinWidth="420" Visibility="Collapsed">
-            <Border BorderThickness="1" >
-                <Border.BorderBrush>
-                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
-                </Border.BorderBrush>
-            </Border>
-            <TextBlock Margin="5,5,5,0" Name="NameTextBlock" TextWrapping="NoWrap" Text="name" FontSize="16" FontFamily="Calibri" />
-            <TextBlock Margin="5,25,5,0" Name="PathTextBlock" TextWrapping="NoWrap" Text="path" FontSize="14" FontFamily="Calibri" />
-            <TextBlock Margin="5,45,5,0" Name="TakenDateTextBlock" TextWrapping="NoWrap" Text="taken date" FontSize="14" FontFamily="Calibri" />
-            <TextBlock Margin="5,65,5,0" Name="MarqueTextBlock" TextWrapping="NoWrap" Text="marque" FontSize="14" FontFamily="Calibri" />
-            <TextBlock Margin="5,85,5,0" Name="ModeleTextBlock" TextWrapping="NoWrap" Text="modèle" FontSize="14" FontFamily="Calibri" />
-            <TextBlock Margin="0,115,5,0" Name="PhotoNumberTextBlock" TextWrapping="NoWrap" Text="number" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Right"/>
-        </Grid>
+        <Border
+            Name="GridInfosBorder"
+            Margin="0,0,20,20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            BorderThickness="1">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+            </Border.BorderBrush>
+            <Grid
+                Name="InfosGrid"
+                Width="Auto"
+                Height="140"
+                MinWidth="420"
+                Background="White"
+                Padding="5,5,5,5"
+                Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Name="NameTextBlock"
+                    Grid.Row="0"
+                    FontFamily="Calibri"
+                    FontSize="16"
+                    Text="name" />
+                <TextBlock
+                    Name="PathTextBlock"
+                    Grid.Row="1"
+                    FontFamily="Calibri"
+                    FontSize="14"
+                    Text="path" />
+                <TextBlock
+                    Name="TakenDateTextBlock"
+                    Grid.Row="2"
+                    FontFamily="Calibri"
+                    FontSize="14"
+                    Text="taken date" />
+                <TextBlock
+                    Name="MarqueTextBlock"
+                    Grid.Row="3"
+                    FontFamily="Calibri"
+                    FontSize="14"
+                    Text="marque" />
+                <TextBlock
+                    Name="ModeleTextBlock"
+                    Grid.Row="4"
+                    FontFamily="Calibri"
+                    FontSize="14"
+                    Text="modèle" />
+                <TextBlock
+                    Name="PhotoNumberTextBlock"
+                    Grid.Row="5"
+                    HorizontalAlignment="Right"
+                    FontFamily="Calibri"
+                    FontSize="14"
+                    Text="number" />
+            </Grid>
+        </Border>
     </Grid>
 </Page>

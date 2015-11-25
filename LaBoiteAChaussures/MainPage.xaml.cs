@@ -37,16 +37,19 @@ namespace LaBoiteAChaussures
         public MainPage()
         {
             this.InitializeComponent();
-            this.OobeWork();
             this.SelectPivot();
-            this.SetString();
 
             // Hide Back navigation button
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
-        private void SelectPivot()
+        private void SelectPivot(string selectedPivot = null )
         {
+            if (selectedPivot != null)
+            {
+                Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, selectedPivot);
+            }
+
             switch ((string)Helper.GetLocalSettings(LocalSettingsValue.selectedpivot))
             {
                 case PivotVideos:
@@ -62,28 +65,17 @@ namespace LaBoiteAChaussures
         }
 
         public ObservableDictionary DefaultViewModel { get; } = new ObservableDictionary();
-
-        private void SetString()
-        {
-            this.RefreshTextBlock.Text = Helper.GetRessource("LibraryRefreshAppButton");
-            this.TextForEmptyGrid.Text = Helper.GetRessource("MainPage_NoPictureInLibrary");
-            this.PhotosButtonName.Text = Helper.GetRessource("PicturesTitle");
-            this.SettingsButtonName.Text = Helper.GetRessource("SettingsTitle");
-            //this.InfosAppBarButton.Label = GetRessource("InfosAppButton");
-        }
-
-        private async void RetrievePictureData(bool forceReload = false)
+        
+        private async void RetrievePictureData(bool forceReload)
         {
             this.TextForEmptyGrid.Visibility = Visibility.Collapsed;
+            this.DefaultViewModel["Items"] = null;
             LoadingProgressRing.IsActive = true;
-            // RefreshAppBarButton.IsEnabled = false;
             this.photosListDictionary.Clear();
             this.photosList.Clear();
             this.yearListForBindingList.Clear();
-            this.DefaultViewModel["Items"] = null;
-            NameTextBlock.Text = "";
-            OpenBox.Visibility = Visibility.Collapsed;
-
+            this.OpenBox.Visibility = Visibility.Collapsed;
+            
             StorageFile file1 = await this.TryGetFileFromLocalFolder(PhotosListDictionaryFileName);
             StorageFile file2 = await this.TryGetFileFromLocalFolder(YearListForBindingListFileName);
 
@@ -101,7 +93,6 @@ namespace LaBoiteAChaussures
 
             await this.SetThumbnailImage();
             this.DefaultViewModel["Items"] = this.yearListForBindingList; // Add the items to the main binding items collection
-            //this.yearListForBindingList.Clear();
             this.TextForEmptyGrid.Visibility = this.yearListForBindingList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
             this.SetAllPicturesInTheBox();
@@ -141,7 +132,8 @@ namespace LaBoiteAChaussures
                 if (isError) continue;
             }
 
-            this.yearListForBindingList.Reverse(); // Reverse the order to have the old folder at the beginning (as on Pictures app)
+            // Reverse the order to have the old folder at the beginning (as on Pictures app)
+            this.yearListForBindingList.Reverse();
 
             // Write data in local folder for storage
             await this.WriteFileInLocalFolder(PhotosListDictionaryFileName, tempDico);
@@ -190,17 +182,17 @@ namespace LaBoiteAChaussures
             if (this.photosList.Count != 0)
             {
                 this.randomPhotosList = this.photosList.OrderBy(x => Guid.NewGuid()).ToList();
-                NameTextBlock.Text = this.randomPhotosList.Count + " " + Helper.GetRessource("MainPage_PictureWord");
-                OpenBox.Visibility = Visibility.Visible;
+                this.OpenBoxCountText.Text = "(" + this.randomPhotosList.Count + " " + Helper.GetRessource("MainPage_PictureWord") + ")";
+                this.OpenBox.Visibility = Visibility.Visible;
                 ItemGridView.Visibility = Visibility.Visible;
             }
             else
             {
-                NameTextBlock.Text = Helper.GetRessource("MainPage_NoPictureInLibrary");
+                this.OpenBox.Visibility = Visibility.Collapsed;
+                //PicturesCountTextBlock.Text = Helper.GetRessource("TextForEmptyGrid/Text");
             }
 
             LoadingProgressRing.IsActive = false;
-            // RefreshAppBarButton.IsEnabled = true;
         }
 
         private async Task<StorageFile> TryGetFileFromLocalFolder(string fileName)
@@ -216,24 +208,6 @@ namespace LaBoiteAChaussures
             }
 
             return file;
-        }
-
-        private void OobeWork()
-        {
-            if (!Helper.DoesLocalSettingsExists(LocalSettingsValue.oobe))
-            {
-            }
-            else
-            {
-                Oobe1Image.Visibility = Visibility.Collapsed;
-
-                Helper.SetLocalSettings(LocalSettingsValue.oobe, true);
-            }
-
-            if (!Helper.DoesLocalSettingsExists(LocalSettingsValue.selectedpivot))
-            {
-                Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotPhotos);
-            }
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -255,12 +229,7 @@ namespace LaBoiteAChaussures
         {
             this.DisplaySettingsPivot();
         }
-
-        private void Button_Click(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PhotoPage), this.randomPhotosList);
-        }
-
+        
         private void ItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.photosList.Clear();
@@ -285,14 +254,9 @@ namespace LaBoiteAChaussures
             }
         }
 
-        private void OpenBox_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            OpenBox.Opacity = 0.5;
-        }
-
         private void RefreshTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            this.RetrievePictureData(true);
+            this.DisplayPhotosPivot(true);
         }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -311,15 +275,15 @@ namespace LaBoiteAChaussures
             }
         }
 
-        private void DisplayPhotosPivot()
+        private void DisplayPhotosPivot(bool forceRetrievePictures = false)
         {
-            this.RetrievePictureData();
+            this.RetrievePictureData(forceRetrievePictures);
             this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = Helper.GetRessource("PicturesTitle");
+            this.PageTitle.Text = Helper.GetRessource("PhotosButton/Text");
             Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotPhotos);
 
-            this.ItemGridView.Visibility = Visibility.Visible;
             this.SettingsGrid.Visibility = Visibility.Collapsed;
+            this.ItemGridView.Visibility = Visibility.Visible;
         }
 
         private void DisplayVideosPivot()
@@ -332,11 +296,17 @@ namespace LaBoiteAChaussures
         private void DisplaySettingsPivot()
         {
             this.MySplitView.IsPaneOpen = false;
-            this.PageTitle.Text = Helper.GetRessource("SettingsTitle");
+            this.PageTitle.Text = Helper.GetRessource("SettingsButton/Text");
             Helper.SetLocalSettings(LocalSettingsValue.selectedpivot, PivotSettings);
 
             this.ItemGridView.Visibility = Visibility.Collapsed;
+            this.OpenBox.Visibility = Visibility.Collapsed;
             this.SettingsGrid.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PhotoPage), this.randomPhotosList);
         }
     }
 }
