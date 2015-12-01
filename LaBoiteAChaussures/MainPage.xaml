@@ -203,12 +203,12 @@
                         Visibility="Collapsed" />
 
                     <!--  Settings text  -->
-                    <Grid Name="SettingsGrid" Grid.Row="1" Visibility="Collapsed">
+                    <Grid Name="SettingsGrid" Margin="5" Grid.Row="1" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <StackPanel Margin="5" VerticalAlignment="Top">
+                        <StackPanel VerticalAlignment="Top">
                             <HyperlinkButton x:Uid="settings_Dev" FontSize="16" />
                             <TextBlock x:Uid="settings_Version" FontSize="16" />
                         </StackPanel>
