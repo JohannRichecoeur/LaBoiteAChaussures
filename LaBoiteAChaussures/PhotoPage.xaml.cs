@@ -91,7 +91,7 @@ namespace LaBoiteAChaussures
 
                 NameTextBlock.Text = this.currentPicture.Name;
                 PathTextBlock.Text = this.currentPicture.Path;
-                PhotoNumberTextBlock.Text = this.counter.ToString() + "/" + this.photosListToDisplay.Count;
+                PhotoNumberTextBlock.Text = string.Format("{0}/{1}", this.counter, this.photosListToDisplay.Count);
 
                 var pic = await StorageFile.GetFileFromPathAsync(this.currentPicture.Path);
                 var properties = await pic.Properties.GetImagePropertiesAsync();
@@ -106,6 +106,15 @@ namespace LaBoiteAChaussures
                 var bitmapImage = new BitmapImage();
                 bitmapImage.SetSource(stream);
                 ImageBox.Source = bitmapImage;
+
+                // Use the following for screenshots
+                //ImageBox.Source = new BitmapImage(new Uri(@"http://bouger.blog.tourisme-aveyron.com/wp-content/uploads/2014/04/Ponts-de-treboul.jpg"));
+                //NameTextBlock.Text = "Lac de Sarrans";
+                //PathTextBlock.Text = @"D:\OneDrive\Photos\140815-Aveyron\140815-16.jpg";
+                //PhotoNumberTextBlock.Text = "23/562";
+                //TakenDateTextBlock.Text = "15/08/2014 15:23:10";
+                //MarqueTextBlock.Text = "NIKON CORPORATION";
+                //ModeleTextBlock.Text = "NIKON D60";
             }
             catch (Exception)
             {
@@ -161,6 +170,7 @@ namespace LaBoiteAChaussures
         {
             this.visibility = this.visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             InfosGrid.Visibility = this.visibility;
+            this.GridInfosBorder.Visibility = this.visibility;
         }
 
         private void UIElement_OnPointerPressed(object sender, PointerRoutedEventArgs e)

@@ -250,6 +250,16 @@
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
                             </ProgressRing.Foreground>
                         </ProgressRing>
+                        <TextBlock
+                            Name="PhotosCountDuringLoading"
+                            Visibility="Collapsed"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,120,0,0">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
                     </Grid>
 
                     <Button

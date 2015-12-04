@@ -43,7 +43,7 @@ namespace LaBoiteAChaussures
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
-        private void SelectPivot(string selectedPivot = null )
+        private void SelectPivot(string selectedPivot = null)
         {
             if (selectedPivot != null)
             {
@@ -65,17 +65,17 @@ namespace LaBoiteAChaussures
         }
 
         public ObservableDictionary DefaultViewModel { get; } = new ObservableDictionary();
-        
+
         private async void RetrievePictureData(bool forceReload)
         {
             this.TextForEmptyGrid.Visibility = Visibility.Collapsed;
             this.DefaultViewModel["Items"] = null;
-            LoadingProgressRing.IsActive = true;
+            this.LoadingProgressRing.IsActive = true;
             this.photosListDictionary.Clear();
             this.photosList.Clear();
             this.yearListForBindingList.Clear();
             this.OpenBox.Visibility = Visibility.Collapsed;
-            
+
             StorageFile file1 = await this.TryGetFileFromLocalFolder(PhotosListDictionaryFileName);
             StorageFile file2 = await this.TryGetFileFromLocalFolder(YearListForBindingListFileName);
 
@@ -88,6 +88,7 @@ namespace LaBoiteAChaussures
             else
             {
                 // no local file, we should retrieve the user data
+                this.PhotosCountDuringLoading.Visibility = Visibility.Visible;
                 this.photosListDictionary = await this.GetPicturesFromUserLibrary();
             }
 
@@ -124,6 +125,10 @@ namespace LaBoiteAChaussures
                             Subtitle = picturesByYearList.ToList().Count + " " + Helper.GetRessource("MainPage_PictureWord")
                         });
                     }
+
+                    // Display the number of pictures found during the load process
+                    int foundPicturesCount = tempDico.Aggregate(0, (current, dico) => current + dico.Value.Count());
+                    this.PhotosCountDuringLoading.Text = foundPicturesCount + " " + Helper.GetRessource("FoundPicturesText");
                 }
                 catch (Exception)
                 {
@@ -131,10 +136,7 @@ namespace LaBoiteAChaussures
                 }
                 if (isError) continue;
             }
-
-            // Reverse the order to have the old folder at the beginning (as on Pictures app)
-            this.yearListForBindingList.Reverse();
-
+            
             // Write data in local folder for storage
             await this.WriteFileInLocalFolder(PhotosListDictionaryFileName, tempDico);
             await this.WriteFileInLocalFolder(YearListForBindingListFileName, this.yearListForBindingList);
@@ -150,7 +152,7 @@ namespace LaBoiteAChaussures
 
         private async Task SetThumbnailImage()
         {
-            // int number = 1;
+            //int number = 1;
 
             foreach (var yearData in this.yearListForBindingList)
             {
@@ -189,10 +191,10 @@ namespace LaBoiteAChaussures
             else
             {
                 this.OpenBox.Visibility = Visibility.Collapsed;
-                //PicturesCountTextBlock.Text = Helper.GetRessource("TextForEmptyGrid/Text");
             }
 
             LoadingProgressRing.IsActive = false;
+            this.PhotosCountDuringLoading.Visibility = Visibility.Collapsed;
         }
 
         private async Task<StorageFile> TryGetFileFromLocalFolder(string fileName)
@@ -229,7 +231,7 @@ namespace LaBoiteAChaussures
         {
             this.DisplaySettingsPivot();
         }
-        
+
         private void ItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.photosList.Clear();
@@ -301,6 +303,7 @@ namespace LaBoiteAChaussures
 
             this.ItemGridView.Visibility = Visibility.Collapsed;
             this.OpenBox.Visibility = Visibility.Collapsed;
+            this.TextForEmptyGrid.Visibility = Visibility.Collapsed;
             this.SettingsGrid.Visibility = Visibility.Visible;
         }
 

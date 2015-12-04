@@ -30,9 +30,8 @@
                     <VisualState.Setters>
                         <Setter Target="LeftArrow.Visibility" Value="Collapsed" />
                         <Setter Target="RightArrow.Visibility" Value="Collapsed" />
-                        <Setter Target="GridInfosBorder.VerticalAlignment" Value="Center" />
                         <Setter Target="GridInfosBorder.HorizontalAlignment" Value="Center" />
-                        <Setter Target="GridInfosBorder.Margin" Value="0,0,0,0" />
+                        <Setter Target="GridInfosBorder.Margin" Value="0,0,0,20" />
                         <Setter Target="InfosGrid.Height" Value="Auto" />
                         <Setter Target="InfosGrid.MinWidth" Value="0" />
                         <Setter Target="NameTextBlock.TextWrapping" Value="Wrap" />
@@ -85,6 +84,7 @@
             Margin="0,0,20,20"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
+            Visibility="Collapsed"
             BorderThickness="1">
             <Border.BorderBrush>
                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
@@ -109,39 +109,33 @@
                     Name="NameTextBlock"
                     Grid.Row="0"
                     FontFamily="Calibri"
-                    FontSize="16"
-                    Text="name" />
+                    FontSize="16" />
                 <TextBlock
                     Name="PathTextBlock"
                     Grid.Row="1"
                     FontFamily="Calibri"
-                    FontSize="14"
-                    Text="path" />
+                    FontSize="14" />
                 <TextBlock
                     Name="TakenDateTextBlock"
                     Grid.Row="2"
                     FontFamily="Calibri"
-                    FontSize="14"
-                    Text="taken date" />
+                    FontSize="14" />
                 <TextBlock
                     Name="MarqueTextBlock"
                     Grid.Row="3"
                     FontFamily="Calibri"
-                    FontSize="14"
-                    Text="marque" />
+                    FontSize="14" />
                 <TextBlock
                     Name="ModeleTextBlock"
                     Grid.Row="4"
                     FontFamily="Calibri"
-                    FontSize="14"
-                    Text="modèle" />
+                    FontSize="14" />
                 <TextBlock
                     Name="PhotoNumberTextBlock"
                     Grid.Row="5"
                     HorizontalAlignment="Right"
                     FontFamily="Calibri"
-                    FontSize="14"
-                    Text="number" />
+                    FontSize="14" />
             </Grid>
         </Border>
     </Grid>

@@ -62,4 +62,8 @@
     <value>Ouvrir la boîte</value>
     <comment>Text of the button to open the box</comment>
   </data>
+  <data name="FoundPicturesText" xml:space="preserve">
+    <value>photos trouvées</value>
+    <comment>Text for the number of pictures found during the load</comment>
+  </data>
 </root>

@@ -1,0 +1,5 @@
+MainPackage=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\bin\ARM\Release\Upload\LaBoiteAChaussures_2.0.0.0_ARM.appx
+SymbolPackage=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\AppPackages\LaBoiteAChaussures_2.0.0.0\LaBoiteAChaussures_2.0.0.0_ARM.appxsym
+ResourcePack=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\_language-fr.appx
+ResourcePack=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\_scale-100.appx
+ResourcePack=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\_scale-400.appx
