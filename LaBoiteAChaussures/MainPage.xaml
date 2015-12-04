@@ -199,6 +199,7 @@
                     <TextBlock
                         x:Uid="TextForEmptyGrid"
                         x:Name="TextForEmptyGrid"
+                        Margin="5,10,0,0"
                         Grid.Row="1"
                         Visibility="Collapsed" />
 

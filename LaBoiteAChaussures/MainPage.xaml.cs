@@ -94,8 +94,7 @@ namespace LaBoiteAChaussures
 
             await this.SetThumbnailImage();
             this.DefaultViewModel["Items"] = this.yearListForBindingList; // Add the items to the main binding items collection
-            this.TextForEmptyGrid.Visibility = this.yearListForBindingList.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-
+            
             this.SetAllPicturesInTheBox();
             this.PrepareToOpenTheBox();
         }
@@ -191,6 +190,7 @@ namespace LaBoiteAChaussures
             else
             {
                 this.OpenBox.Visibility = Visibility.Collapsed;
+                this.TextForEmptyGrid.Visibility = Visibility.Visible;
             }
 
             LoadingProgressRing.IsActive = false;
