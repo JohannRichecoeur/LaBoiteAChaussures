@@ -118,6 +118,10 @@ namespace LaBoiteAChaussures
             }
             catch (Exception)
             {
+                var dialog = new Windows.UI.Popups.MessageDialog(
+                    Helper.GetRessource("ErrorMessage_CouldNotLoadPicture")
+                    );
+                await dialog.ShowAsync();
                 this.Frame.Navigate(typeof(MainPage), "errorMessage");
             }
         }
