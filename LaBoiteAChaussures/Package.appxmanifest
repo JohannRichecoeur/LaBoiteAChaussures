@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="57101Jean-EricHourchon.Labotechaussures" Publisher="CN=048E22C3-4A5D-4258-A65C-660557469F36" Version="2.0.0.0" />
+  <Identity Name="57101Jean-EricHourchon.Labotechaussures" Publisher="CN=048E22C3-4A5D-4258-A65C-660557469F36" Version="2.0.1.0" />
   <mp:PhoneIdentity PhoneProductId="7c7baa8e-8150-4451-ad12-90576be0ad3f" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>La boîte à chaussures</DisplayName>
+    <DisplayName>ms-resource:MainTitle</DisplayName>
     <PublisherDisplayName>Jean-Eric Hourchon</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

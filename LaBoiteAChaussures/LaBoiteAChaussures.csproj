@@ -18,7 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>LaBoiteAChaussures_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>164748C812BE1592D0448F1606463DD02596F49F</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>3B9D94B95645CE6EE919F30DF00D8096B6C35927</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>

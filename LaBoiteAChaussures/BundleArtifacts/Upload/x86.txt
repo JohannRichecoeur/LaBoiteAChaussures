@@ -1,2 +1,2 @@
-MainPackage=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\bin\x86\Release\Upload\LaBoiteAChaussures_2.0.0.0_x86.appx
-SymbolPackage=C:\Users\jrichec.EUROPE\Source\Repos\LaBoiteAChaussures\LaBoiteAChaussures\AppPackages\LaBoiteAChaussures_2.0.0.0\LaBoiteAChaussures_2.0.0.0_x86.appxsym
+MainPackage=C:\Users\jrichec\Documents\GitHub\LaBoiteAChaussures\LaBoiteAChaussures\bin\x86\Release\Upload\LaBoiteAChaussures_2.0.1.0_x86.appx
+SymbolPackage=C:\Users\jrichec\Documents\GitHub\LaBoiteAChaussures\LaBoiteAChaussures\AppPackages\LaBoiteAChaussures_2.0.1.0\LaBoiteAChaussures_2.0.1.0_x86.appxsym
