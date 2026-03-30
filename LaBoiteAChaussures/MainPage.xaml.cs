@@ -107,7 +107,7 @@ namespace LaBoiteAChaussures
             this.PrepareToOpenTheBox();
 
             // Update progress text for thumbnail loading
-            this.PhotosCountDuringLoading.Text = "Loading thumbnails...";
+            this.PhotosCountDuringLoading.Text = Helper.GetRessource("LoadingThumbnailsText");
 
             // Load thumbnails (this is now faster due to parallel loading)
             await this.SetThumbnailImage();
@@ -152,7 +152,7 @@ namespace LaBoiteAChaussures
 
                     // Display progress and picture count during the load process
                     int foundPicturesCount = tempDico.Aggregate(0, (current, dico) => current + dico.Value.Count());
-                    this.PhotosCountDuringLoading.Text = $"{foundPicturesCount} {Helper.GetRessource("FoundPicturesText")}\n({processedFolders}/{totalFolders} folders)";
+                    this.PhotosCountDuringLoading.Text = $"{foundPicturesCount} {Helper.GetRessource("FoundPicturesText")}\n({processedFolders}/{totalFolders} {Helper.GetRessource("FoldersText")})";
                 }
                 catch (Exception ex)
                 {

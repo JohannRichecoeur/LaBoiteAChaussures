@@ -171,4 +171,12 @@
     <value>found pictures</value>
     <comment>Text for the number of pictures found during the load</comment>
   </data>
+  <data name="FoldersText" xml:space="preserve">
+    <value>folders</value>
+    <comment>Text for the number of folders processed during the load</comment>
+  </data>
+  <data name="LoadingThumbnailsText" xml:space="preserve">
+    <value>Loading thumbnails...</value>
+    <comment>Text displayed while thumbnails are being loaded</comment>
+  </data>
 </root>

@@ -66,4 +66,12 @@
     <value>photos trouvées</value>
     <comment>Text for the number of pictures found during the load</comment>
   </data>
+  <data name="FoldersText" xml:space="preserve">
+    <value>dossiers</value>
+    <comment>Text for the number of folders processed during the load</comment>
+  </data>
+  <data name="LoadingThumbnailsText" xml:space="preserve">
+    <value>Chargement des miniatures...</value>
+    <comment>Text displayed while thumbnails are being loaded</comment>
+  </data>
 </root>

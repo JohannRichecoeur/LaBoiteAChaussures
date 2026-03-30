@@ -256,6 +256,7 @@
                             Visibility="Collapsed"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            TextAlignment="Center"
                             Margin="0,120,0,0">
                             <TextBlock.Foreground>
                                 <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
