@@ -32,6 +32,7 @@ namespace LaBoiteAChaussures
         private List<BindingYearData> yearListForBindingList = new List<BindingYearData>();
         private List<PhotoClass> randomPhotosList = new List<PhotoClass>();
         private readonly List<string> picturesFormat = new List<string>() { ".jpg", ".gif", ".png" };
+        private bool isDataLoaded = false;
 
 
         public MainPage()
@@ -68,6 +69,14 @@ namespace LaBoiteAChaussures
 
         private async void RetrievePictureData(bool forceReload)
         {
+            // If data is already loaded and not forcing reload, just update the UI
+            if (isDataLoaded && !forceReload)
+            {
+                this.DefaultViewModel["Items"] = this.yearListForBindingList;
+                this.PrepareToOpenTheBox();
+                return;
+            }
+
             this.TextForEmptyGrid.Visibility = Visibility.Collapsed;
             this.DefaultViewModel["Items"] = null;
             this.LoadingProgressRing.IsActive = true;
@@ -92,11 +101,22 @@ namespace LaBoiteAChaussures
                 this.photosListDictionary = await this.GetPicturesFromUserLibrary();
             }
 
-            await this.SetThumbnailImage();
+            // Show items immediately before thumbnails are loaded
             this.DefaultViewModel["Items"] = this.yearListForBindingList; // Add the items to the main binding items collection
-            
             this.SetAllPicturesInTheBox();
             this.PrepareToOpenTheBox();
+
+            // Update progress text for thumbnail loading
+            this.PhotosCountDuringLoading.Text = "Loading thumbnails...";
+
+            // Load thumbnails (this is now faster due to parallel loading)
+            await this.SetThumbnailImage();
+
+            this.isDataLoaded = true;
+
+            // Hide the progress indicator after thumbnails are loaded
+            LoadingProgressRing.IsActive = false;
+            this.PhotosCountDuringLoading.Visibility = Visibility.Collapsed;
         }
 
         private async Task<Dictionary<string, IEnumerable<PhotoClass>>> GetPicturesFromUserLibrary()
@@ -105,11 +125,16 @@ namespace LaBoiteAChaussures
 
             StorageFolderQueryResult query = KnownFolders.PicturesLibrary.CreateFolderQuery(CommonFolderQuery.GroupByYear);
             var f = (await query.GetFoldersAsync()).ToList();
+            int totalFolders = f.Count;
+            int processedFolders = 0;
+
             foreach (var storageFolder in f)
             {
                 bool isError = false;
                 try
                 {
+                    processedFolders++;
+
                     IReadOnlyList<StorageFile> fileList = (await storageFolder.GetFilesAsync(CommonFileQuery.DefaultQuery));
                     var picturesByYearList = (from p in fileList
                                               where picturesFormat.Any(p.FileType.ToLower().Contains)
@@ -125,12 +150,13 @@ namespace LaBoiteAChaussures
                         });
                     }
 
-                    // Display the number of pictures found during the load process
+                    // Display progress and picture count during the load process
                     int foundPicturesCount = tempDico.Aggregate(0, (current, dico) => current + dico.Value.Count());
-                    this.PhotosCountDuringLoading.Text = foundPicturesCount + " " + Helper.GetRessource("FoundPicturesText");
+                    this.PhotosCountDuringLoading.Text = $"{foundPicturesCount} {Helper.GetRessource("FoundPicturesText")}\n({processedFolders}/{totalFolders} folders)";
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Error loading pictures from folder {storageFolder.Name}: {ex.Message}");
                     isError = true;
                 }
                 if (isError) continue;
@@ -153,7 +179,8 @@ namespace LaBoiteAChaussures
         {
             //int number = 1;
 
-            foreach (var yearData in this.yearListForBindingList)
+            // Load thumbnails in parallel for better performance
+            var loadTasks = this.yearListForBindingList.Select(async yearData =>
             {
                 try
                 {
@@ -161,21 +188,30 @@ namespace LaBoiteAChaussures
                     var photoToDisplay = t.OrderBy(x => Guid.NewGuid()).ToList()[0];
                     var bitmapImage = new BitmapImage();
                     var storageFile = await StorageFile.GetFileFromPathAsync(photoToDisplay.Path);
-                    bitmapImage.SetSource(await storageFile.OpenReadAsync());
-                    yearData.ImageSource = bitmapImage;
-                }
 
-                // ReSharper disable once EmptyGeneralCatchClause
-                catch (Exception)
+                    // Load the thumbnail on the UI thread
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal,
+                        async () =>
+                        {
+                            bitmapImage.SetSource(await storageFile.OpenReadAsync());
+                            yearData.ImageSource = bitmapImage;
+                        });
+                }
+                catch (Exception ex)
                 {
-                    // we have no photo to display
+                    // Failed to load thumbnail - file might be deleted or inaccessible
+                    System.Diagnostics.Debug.WriteLine($"Failed to load thumbnail for {yearData.Title}: {ex.Message}");
                 }
 
                 //// Use the following line to create screenshot
                 //string uri = "ms-appx:/Assets/" + number + ".jpg";
                 //yearData.ImageSource = new BitmapImage(new Uri(uri));
                 //number++;
-            }
+            });
+
+            // Wait for all thumbnails to load in parallel
+            await Task.WhenAll(loadTasks);
         }
 
         private void PrepareToOpenTheBox()
@@ -193,8 +229,7 @@ namespace LaBoiteAChaussures
                 this.TextForEmptyGrid.Visibility = Visibility.Visible;
             }
 
-            LoadingProgressRing.IsActive = false;
-            this.PhotosCountDuringLoading.Visibility = Visibility.Collapsed;
+            // Note: Progress ring will be hidden after thumbnails are loaded
         }
 
         private async Task<StorageFile> TryGetFileFromLocalFolder(string fileName)
@@ -204,9 +239,9 @@ namespace LaBoiteAChaussures
             {
                 file = await this.localFolder.GetFileAsync(fileName);
             }
-            // ReSharper disable once EmptyGeneralCatchClause
-            catch
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"File {fileName} not found in local folder: {ex.Message}");
             }
 
             return file;

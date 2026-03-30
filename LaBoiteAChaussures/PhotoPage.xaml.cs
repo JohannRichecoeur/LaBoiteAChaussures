@@ -44,8 +44,11 @@ namespace LaBoiteAChaussures
             SystemNavigationManager.GetForCurrentView().BackRequested +=
                 (sender, args) =>
                 {
-                    Frame.Navigate(typeof(MainPage));
-                    args.Handled = true;
+                    if (Frame.CanGoBack)
+                    {
+                        Frame.GoBack();
+                        args.Handled = true;
+                    }
                 };
         }
 
@@ -79,7 +82,10 @@ namespace LaBoiteAChaussures
             }
             else if (keyRoutedEventArgs.Key == Windows.System.VirtualKey.Escape)
             {
-                this.Frame.Navigate(typeof(MainPage));
+                if (this.Frame.CanGoBack)
+                {
+                    this.Frame.GoBack();
+                }
             }
         }
 
@@ -122,7 +128,10 @@ namespace LaBoiteAChaussures
                     Helper.GetRessource("ErrorMessage_CouldNotLoadPicture")
                     );
                 await dialog.ShowAsync();
-                this.Frame.Navigate(typeof(MainPage), "errorMessage");
+                if (this.Frame.CanGoBack)
+                {
+                    this.Frame.GoBack();
+                }
             }
         }
 
