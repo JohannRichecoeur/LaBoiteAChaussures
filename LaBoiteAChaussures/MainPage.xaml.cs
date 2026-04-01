@@ -107,7 +107,15 @@ namespace LaBoiteAChaussures
             this.PrepareToOpenTheBox();
 
             // Update progress text for thumbnail loading
-            this.PhotosCountDuringLoading.Text = Helper.GetRessource("LoadingThumbnailsText");
+            try
+            {
+                this.PhotosCountDuringLoading.Text = Helper.GetRessource("LoadingThumbnailsText");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to load localized text: {ex.Message}");
+                this.PhotosCountDuringLoading.Text = "Loading thumbnails...";
+            }
 
             // Load thumbnails (this is now faster due to parallel loading)
             await this.SetThumbnailImage();
@@ -185,18 +193,40 @@ namespace LaBoiteAChaussures
                 try
                 {
                     IEnumerable<PhotoClass> t = this.photosListDictionary[yearData.Title];
-                    var photoToDisplay = t.OrderBy(x => Guid.NewGuid()).ToList()[0];
+                    var photoToDisplay = t.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+
+                    if (photoToDisplay == null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"No photo found for {yearData.Title}");
+                        return;
+                    }
+
                     var bitmapImage = new BitmapImage();
                     var storageFile = await StorageFile.GetFileFromPathAsync(photoToDisplay.Path);
 
-                    // Load the thumbnail on the UI thread
-                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                        CoreDispatcherPriority.Normal,
-                        async () =>
-                        {
-                            bitmapImage.SetSource(await storageFile.OpenReadAsync());
-                            yearData.ImageSource = bitmapImage;
-                        });
+                    // Ensure we're on the UI thread before setting ImageSource
+                    if (Dispatcher.HasThreadAccess)
+                    {
+                        bitmapImage.SetSource(await storageFile.OpenReadAsync());
+                        yearData.ImageSource = bitmapImage;
+                    }
+                    else
+                    {
+                        await Dispatcher.RunAsync(
+                            CoreDispatcherPriority.Normal,
+                            async () =>
+                            {
+                                try
+                                {
+                                    bitmapImage.SetSource(await storageFile.OpenReadAsync());
+                                    yearData.ImageSource = bitmapImage;
+                                }
+                                catch (Exception ex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Failed to set thumbnail on UI thread for {yearData.Title}: {ex.Message}");
+                                }
+                            });
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -211,7 +241,14 @@ namespace LaBoiteAChaussures
             });
 
             // Wait for all thumbnails to load in parallel
-            await Task.WhenAll(loadTasks);
+            try
+            {
+                await Task.WhenAll(loadTasks);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error during parallel thumbnail loading: {ex.Message}");
+            }
         }
 
         private void PrepareToOpenTheBox()

@@ -1,5 +1,0 @@
-MainPackage=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x64\Release\Upload\LaBoiteAChaussures_2.0.2.0_x64.appx
-SymbolPackage=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x64\Release\Upload\LaBoiteAChaussures_2.0.2.0\LaBoiteAChaussures_2.0.2.0_x64.appxsym
-ResourcePack=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x64\Release\Upload\LaBoiteAChaussures_2.0.2.0_language-fr.appx
-ResourcePack=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x64\Release\Upload\LaBoiteAChaussures_2.0.2.0_scale-100.appx
-ResourcePack=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x64\Release\Upload\LaBoiteAChaussures_2.0.2.0_scale-400.appx

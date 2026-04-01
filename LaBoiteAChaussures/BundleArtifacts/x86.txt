@@ -1,2 +1,0 @@
-MainPackage=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\bin\x86\Release\LaBoiteAChaussures_2.0.2.0_x86.appx
-SymbolPackage=C:\Repository\LaBoiteAChaussures\LaBoiteAChaussures\obj\x86\Release\Symbols\LaBoiteAChaussures_2.0.2.0_x86.appxsym

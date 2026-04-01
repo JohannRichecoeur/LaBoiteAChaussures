@@ -37,6 +37,10 @@ _ReSharper*/
 *.userosscache
 *.sln.docstates
 
+# Explicitly ignore project user files
+*.csproj.user
+*.vbproj.user
+
 # Build results
 *.ilk
 *.meta
@@ -79,6 +83,7 @@ _ReSharper*/
 /LaBoiteAChaussures/AppPackages/
 /LaBoiteAChaussures/BundleArtifacts/
 /LaBoiteAChaussures/Package.StoreAssociation.xml
+BundleArtifacts/
 
 # Certificate files - SECURITY: Never commit private keys
 *.pfx
@@ -141,3 +146,8 @@ $RECYCLE.BIN/
 
 # Documentation
 CODE_REVIEW_IMPROVEMENTS.md
+/LaBoiteAChaussures/LaBoiteAChaussures.csproj.user
+/LaBoiteAChaussures/BundleArtifacts/Upload/x64.txt
+/LaBoiteAChaussures/BundleArtifacts/Upload/x86.txt
+/LaBoiteAChaussures/BundleArtifacts/x64.txt
+/LaBoiteAChaussures/BundleArtifacts/x86.txt
